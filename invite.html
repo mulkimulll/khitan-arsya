@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invite</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container justify-content-center mt-4">
+        <h3 class="text-center">Invite orang orang</h3>
+
+        <div class="form-group mb-3">
+            <label for="nama">Nama yang pengen di invite</label>
+            <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukin namanya" />
+        </div>
+
+        <button type="button" class="btn btn-secondary btn-sm" id="copy">
+            Copy link
+        </button>
+        <button type="button" class="btn btn-success btn-sm" id="shareWa">
+            Share ke WhatsApp
+        </button>
+
+        <textarea class="form-control mt-3" id="textcopied" rows="10" style="display: none;"></textarea>
+    </div>
+
+    <script>
+    function generateText() {
+        let nama = $("#nama").val();
+        let link = encodeURIComponent(nama);
+
+        if (nama) {
+            const text = 
+`Assalamu'alaikum Wr. Wb
+Bismillahirahmanirrahim.
+Yth. ${nama}
+
+Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara khitanan putra kami:
+
+🌙 *Muhammad Arshaq Radhika*
+
+Berikut link undangan lengkapnya dapat dilihat pada link berikut:
+
+https://khitan-arsya.vercel.app/index.html?to=${link}
+
+Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu kepada putra kami.
+
+Mohon maaf undangan hanya dibagikan melalui pesan ini.
+Terima kasih banyak atas perhatian dan doanya.
+
+Wassalamu'alaikum Wr. Wb.
+Terima Kasih.`;
+
+            $("#textcopied").val(text);
+            return text;
+        }
+    }
+
+    // Auto generate saat mengetik
+    $("#nama").on("keyup", generateText);
+
+    // Copy
+    $("#copy").on("click", function () {
+        let copyText = document.getElementById("textcopied");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        alert("Teks udah disalin!");
+    });
+
+    // Share ke WhatsApp
+    $("#shareWa").on("click", function () {
+        const text = generateText();
+        if (!text) {
+            alert("Masukkan nama dulu!");
+            return;
+        }
+
+        const waUrl = "https://wa.me/?text=" + encodeURIComponent(text);
+        window.open(waUrl, "_blank");
+    });
+</script>
+
+</body>
+
+</html>
