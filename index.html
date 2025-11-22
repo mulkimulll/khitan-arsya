@@ -42,7 +42,7 @@
     }
   </script>
   <audio id="audio" style="width:0px; height:0px;">
-    <source src="media/" type="audio/mpeg"></audio>
+    <source src="media/member-1-20231115100333.mp3" type="audio/mpeg"></audio>
 
   <style>
     .asd-top {
@@ -70,7 +70,7 @@
             <h5 class="mb-0 text-white">Sabtu, 06 Desember 2025 </h5>
           </div>
           <small class="text-white" fadeinup="" wow="">Untuk</small>
-          <h5 class="my-2 text-white namaTamu" fadeinup="" wow="">test</h5>
+          <h5 class="my-2 text-white namaTamu" fadeinup="" wow="" id="namaTamu">test</h5>
           <div class="text-white" fadeinup="" wow="">di Tempat</div>
           <div class="btn-undangan">
             <a href="#mempelai" class="btn btn-primary mt-4" onclick="music();">Buka Undangan</a>
@@ -79,6 +79,14 @@
       </div>
       <img src="images/bawah.png" class="img-fluid w-100">
     </div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nama = urlParams.get('to'); // ambil ?to=
+
+    if (nama) {
+        document.getElementById('namaTamu').innerText = nama;
+    }
+</script>
 
     <div class="py-5" id="mempelai">
       <div class="container">
